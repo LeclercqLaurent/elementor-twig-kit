@@ -1,0 +1,7 @@
+vendor/
+node_modules/
+.phpunit.cache/
+var/
+.php-cs-fixer.cache
+coverage/
+.env

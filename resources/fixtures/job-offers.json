@@ -1,0 +1,59 @@
+{
+  "items": [
+    {
+      "reference": "DEMO-001",
+      "title": "Développeuse ou développeur PHP",
+      "company": "Fabrique Numérique Fictive",
+      "city": "Lyon",
+      "country": "FR",
+      "contract": "permanent",
+      "excerpt": "Reprise et modernisation d'un back-office métier : architecture hexagonale, tests exécutables, revue de code systématique.",
+      "published_at": "2026-08-28",
+      "url": "https://example.invalid/offres/demo-001"
+    },
+    {
+      "reference": "DEMO-002",
+      "title": "Intégratrice ou intégrateur accessibilité",
+      "company": "Atelier Exemple",
+      "city": "Nantes",
+      "country": "FR",
+      "contract": "fixed_term",
+      "excerpt": "Mise en conformité RGAA d'un parcours de candidature : audit, corrections, transfert de compétences aux équipes produit.",
+      "published_at": "2026-08-14",
+      "url": "https://example.invalid/offres/demo-002"
+    },
+    {
+      "reference": "DEMO-003",
+      "title": "Ingénieure ou ingénieur plateforme",
+      "company": "Coopérative Imaginaire",
+      "city": "Lyon",
+      "country": "FR",
+      "contract": "freelance",
+      "excerpt": "Industrialisation des déploiements et des sauvegardes sur une infrastructure auto-hébergée, sans dépendance à un fournisseur unique.",
+      "published_at": "2026-07-02",
+      "url": "https://example.invalid/offres/demo-003"
+    },
+    {
+      "reference": "DEMO-004",
+      "title": "Stage — assurance qualité applicative",
+      "company": "Fabrique Numérique Fictive",
+      "city": "Genève",
+      "country": "CH",
+      "contract": "internship",
+      "excerpt": "Écriture de scénarios de bout en bout et mesure de couverture sur une application existante, encadré par l'équipe technique.",
+      "published_at": "2026-06-19",
+      "url": "https://example.invalid/offres/demo-004"
+    },
+    {
+      "reference": "DEMO-005",
+      "title": "Alternance — développement front",
+      "company": "Atelier Exemple",
+      "city": "Villeurbanne",
+      "country": "FR",
+      "contract": "apprenticeship",
+      "excerpt": "Participation à une interface React et TypeScript, revue par paire et tests de composants dès la première semaine.",
+      "published_at": "2026-05-30",
+      "url": "https://example.invalid/offres/demo-005"
+    }
+  ]
+}

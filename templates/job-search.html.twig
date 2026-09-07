@@ -1,0 +1,32 @@
+{#
+    Formulaire de recherche. Chaque champ porte un label associé, la soumission
+    se fait en GET pour que la recherche reste partageable et rejouable, et le
+    bouton est un vrai bouton — pas un lien stylé.
+#}
+<form class="etk-search" method="get" action="{{ action }}" role="search">
+    <p class="etk-search__field">
+        <label class="etk-search__label" for="{{ id_prefix }}-q">Mot-clé</label>
+        <input class="etk-search__input" type="search" id="{{ id_prefix }}-q" name="q"
+               value="{{ query.keywords }}" autocomplete="off">
+    </p>
+
+    <p class="etk-search__field">
+        <label class="etk-search__label" for="{{ id_prefix }}-city">Ville</label>
+        <input class="etk-search__input" type="text" id="{{ id_prefix }}-city" name="city"
+               value="{{ query.city }}" autocomplete="address-level2">
+    </p>
+
+    <p class="etk-search__field">
+        <label class="etk-search__label" for="{{ id_prefix }}-contract">Contrat</label>
+        <select class="etk-search__input" id="{{ id_prefix }}-contract" name="contract">
+            <option value="">Tous les contrats</option>
+            {% for value, label in contracts %}
+                <option value="{{ value }}"{% if value == query.contract %} selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </p>
+
+    <p class="etk-search__actions">
+        <button class="etk-search__submit" type="submit">Rechercher</button>
+    </p>
+</form>

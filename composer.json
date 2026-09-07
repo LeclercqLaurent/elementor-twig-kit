@@ -1,0 +1,56 @@
+{
+    "name": "codeam/elementor-twig-kit",
+    "description": "Preuve de concept : des widgets Elementor rendus par Twig, configurés par .env, testés hors-ligne et analysés au level 9.",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "keywords": [
+        "wordpress",
+        "wordpress-plugin",
+        "elementor",
+        "twig",
+        "phpstan",
+        "proof-of-concept"
+    ],
+    "authors": [
+        {
+            "name": "Codeam",
+            "email": "laurent@codeam.fr"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "twig/twig": "^3.23"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "phpstan/phpstan": "^2.2",
+        "phpunit/phpunit": "^11.0",
+        "szepeviktor/phpstan-wordpress": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ElementorTwigKit\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ElementorTwigKit\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "stan": "phpstan analyse",
+        "cs": "php-cs-fixer fix --dry-run --diff",
+        "cs-fix": "php-cs-fixer fix",
+        "qa": "scripts/qa.sh"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        },
+        "platform": {
+            "php": "8.2.0"
+        }
+    }
+}
