@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Le seul adaptateur qui touche le réseau. Le test reste hors-ligne : il vise
  * un port fermé sur la boucle locale, ce qui échoue immédiatement et sans
- * résolution DNS — la suite ne dépend donc d'aucune connectivité.
+ * résolution DNS : la suite ne dépend donc d'aucune connectivité.
  */
 final class CurlHttpClientTest extends TestCase
 {

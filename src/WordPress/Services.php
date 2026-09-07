@@ -11,7 +11,7 @@ use ElementorTwigKit\Infrastructure\Rendering\Renderer;
 use RuntimeException;
 
 /**
- * Racine de composition, exposée statiquement — et c'est un compromis assumé.
+ * Racine de composition, exposée statiquement, et c'est un compromis assumé.
  *
  * Elementor instancie lui-même les classes de widgets, sans argument, à chaque
  * rendu : on ne peut donc pas leur injecter leurs dépendances par le

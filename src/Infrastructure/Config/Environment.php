@@ -9,7 +9,7 @@ namespace ElementorTwigKit\Infrastructure\Config;
  *
  * Les secrets d'un plugin WordPress n'ont rien à faire dans la base : ils vivent
  * dans un fichier non versionné, propre à chaque serveur, qui survit à un
- * déploiement par « git reset --hard ». Cinquante lignes suffisent — inutile de
+ * déploiement par « git reset --hard ». Cinquante lignes suffisent : inutile de
  * traîner une dépendance pour lire des paires clé/valeur.
  */
 final class Environment

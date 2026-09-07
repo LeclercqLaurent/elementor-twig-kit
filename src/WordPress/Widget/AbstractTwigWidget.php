@@ -13,7 +13,7 @@ use ElementorTwigKit\WordPress\Services;
  *
  * La méthode « render » d'Elementor attend un affichage direct ; on la garde
  * réduite à un « echo » de ce que Twig a produit, pour que tout ce qui est
- * testable — la construction du contexte — le reste vraiment.
+ * testable (la construction du contexte) le reste vraiment.
  */
 abstract class AbstractTwigWidget extends Widget_Base
 {

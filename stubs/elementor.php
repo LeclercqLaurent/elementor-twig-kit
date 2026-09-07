@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Stubs Elementor — pour l'analyse statique et les tests uniquement.
+ * Stubs Elementor, pour l'analyse statique et les tests uniquement.
  *
  * Elementor n'est pas une dépendance Composer : il est installé par WordPress.
  * Sans ces déclarations, PHPStan ne saurait rien des classes étendues par les

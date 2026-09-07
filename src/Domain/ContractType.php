@@ -8,7 +8,7 @@ namespace ElementorTwigKit\Domain;
  * Nature du contrat proposé.
  *
  * Un enum plutôt qu'une chaîne : la valeur venue de l'API est validée une fois,
- * au mapping, et plus jamais ensuite — ni dans les filtres, ni dans les vues.
+ * au mapping, et plus jamais ensuite : ni dans les filtres, ni dans les vues.
  */
 enum ContractType: string
 {
@@ -31,7 +31,8 @@ enum ContractType: string
 
     /**
      * Tolère ce qu'une API renvoie réellement : casse variable, tirets, espaces.
-     * Une valeur inconnue vaut null — au mapping de décider quoi en faire.
+     * Une valeur inconnue vaut null, et c'est au mapping de décider quoi en
+     * faire.
      */
     public static function tryFromLoose(string $raw): ?self
     {

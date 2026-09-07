@@ -28,7 +28,7 @@ mêmes :
 Ce dépôt répond aux trois : Twig échappe par défaut et rend les gabarits
 surchargeables ; le domaine et l'infrastructure ne connaissent ni WordPress ni
 Elementor, donc s'exécutent dans PHPUnit sans site installé ; la couche
-WordPress est réduite à une coquille — déclarer des contrôles, lire des
+WordPress est réduite à une coquille : déclarer des contrôles, lire des
 réglages, afficher une chaîne.
 
 **Ce que ce n'est pas** : un plugin de production. Les offres sont fictives, le
@@ -44,7 +44,7 @@ Ports et adaptateurs, avec un flux de dépendance qui ne va que vers l'intérieu
 
 ```
 src/
-├── Domain/                  PHP pur — ni WordPress, ni Twig, ni réseau
+├── Domain/                  PHP pur : ni WordPress, ni Twig, ni réseau
 │   ├── JobOffer.php             entité immuable, valide par construction
 │   ├── JobQuery.php             critères de recherche (objet, pas 4 paramètres)
 │   ├── ContractType.php         enum + libellés
@@ -113,8 +113,8 @@ manque coûte plus cher que la fonctionnalité qu'il apporte.
 ### Accessibilité
 
 Les gabarits sont écrits pour le RGAA, pas rendus conformes après coup : niveau
-de titre paramétrable — un widget ignore la hiérarchie de la page qui l'accueille
-et ne doit pas imposer un `h2` —, `aria-labelledby` sur la section, un `label`
+de titre paramétrable (un widget ignore la hiérarchie de la page qui l'accueille
+et ne doit pas imposer un `h2`), `aria-labelledby` sur la section, un `label`
 associé à chaque champ par un identifiant **unique par instance de widget** (deux
 formulaires sur la même page ne doivent pas produire deux fois le même `id`),
 recherche soumise en `GET` pour rester partageable, et un vrai `<button>` plutôt
@@ -170,7 +170,7 @@ puisse installer les mêmes versions sur toute la matrice. Un lock résolu sous
 
 ## Le compromis assumé
 
-`WordPress\Services` est un localisateur de services statique — ce qu'on évite
+`WordPress\Services` est un localisateur de services statique, ce qu'on évite
 partout ailleurs dans ce dépôt.
 
 Elementor instancie lui-même les classes de widgets, sans argument, à chaque
@@ -186,4 +186,4 @@ Documenter l'écart et son motif vaut mieux que prétendre qu'il n'existe pas.
 
 ## Licence
 
-MIT — voir [LICENSE](LICENSE).
+MIT, voir [LICENSE](LICENSE).

@@ -20,7 +20,7 @@ final class JobSearchWidget extends AbstractTwigWidget
 
     public function get_title(): string
     {
-        return 'Offres d\'emploi — recherche';
+        return 'Offres d\'emploi : recherche';
     }
 
     public function get_icon(): string

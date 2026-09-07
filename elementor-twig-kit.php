@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * Plugin Name: Elementor Twig Kit
- * Description: Preuve de concept — des widgets Elementor rendus par Twig, configurés par un fichier .env, testés hors-ligne.
+ * Description: Preuve de concept : des widgets Elementor rendus par Twig, configurés par un fichier .env, testés hors-ligne.
  * Version: 0.1.0
  * Requires PHP: 8.2
  * Author: Codeam

@@ -8,7 +8,7 @@ namespace ElementorTwigKit\Infrastructure\Config;
  * Configuration validée du plugin.
  *
  * Le point important est le mode dégradé : sans API configurée, le plugin ne
- * plante pas et ne laisse pas non plus une page à moitié rendue — il bascule
+ * plante pas et ne laisse pas non plus une page à moitié rendue. Il bascule
  * sur le jeu de démonstration embarqué et le signale. Sur un site en
  * production, un plugin qui casse la page d'accueil parce qu'une clé manque
  * coûte plus cher que la fonctionnalité qu'il apporte.

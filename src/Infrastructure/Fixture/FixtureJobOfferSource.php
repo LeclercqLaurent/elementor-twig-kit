@@ -12,9 +12,10 @@ use ElementorTwigKit\Infrastructure\Api\JobOfferMapper;
  * Source de démonstration : un jeu d'offres fictives embarqué dans le plugin.
  *
  * C'est ce qui rend cette preuve de concept exécutable telle quelle, sans API à
- * installer — et, sur un vrai site, ce qui permet à un intégrateur de composer
- * ses pages Elementor avant que l'API ne soit prête. Le filtrage se fait ici en
- * mémoire, avec les mêmes critères que ceux envoyés à l'API distante.
+ * installer. C'est aussi, sur un vrai site, ce qui permet à un intégrateur de
+ * composer ses pages Elementor avant que l'API ne soit prête. Le filtrage se
+ * fait ici en mémoire, avec les mêmes critères que ceux envoyés à l'API
+ * distante.
  */
 final readonly class FixtureJobOfferSource implements JobOfferSource
 {
