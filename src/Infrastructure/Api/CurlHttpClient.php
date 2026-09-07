@@ -13,7 +13,7 @@ final class CurlHttpClient implements HttpClient
         $handle = curl_init($url);
 
         if (!$handle instanceof CurlHandle) {
-            throw TransportFailure::network($url, 'initialisation de cURL impossible');
+            throw TransportFailure::network($url, 'cURL could not be initialised');
         }
 
         try {
@@ -42,7 +42,7 @@ final class CurlHttpClient implements HttpClient
         $status = (int) curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
 
         if (!is_string($body)) {
-            throw TransportFailure::network($url, curl_error($handle) ?: 'erreur inconnue');
+            throw TransportFailure::network($url, curl_error($handle) ?: 'unknown error');
         }
 
         if ($status < 200 || $status >= 300) {

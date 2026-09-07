@@ -1,19 +1,19 @@
 {#
-    Liste d'offres. Le titre de section est de niveau paramétrable : un widget
-    posé dans une page ne connaît pas le niveau de titre qui le précède, et
-    imposer un h2 casserait la hiérarchie attendue par le RGAA.
+    The list of offers. The section heading level is configurable: a widget
+    dropped into a page knows nothing of the heading that precedes it, and
+    forcing an h2 would break the hierarchy accessibility expects.
 #}
 <section class="etk-list" aria-labelledby="{{ heading_id }}">
     <{{ heading_level }} class="etk-list__heading" id="{{ heading_id }}">{{ heading }}</{{ heading_level }}>
 
     {% if demo_mode %}
         <p class="etk-list__notice" role="note">
-            Jeu de démonstration : aucune API n'est configurée.
+            Demo dataset: no API is configured.
         </p>
     {% endif %}
 
     {% if offers is empty %}
-        <p class="etk-list__empty">Aucune offre ne correspond à cette recherche.</p>
+        <p class="etk-list__empty">No offer matches this search.</p>
     {% else %}
         <ul class="etk-list__items">
             {% for offer in offers %}

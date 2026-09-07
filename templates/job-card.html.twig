@@ -1,4 +1,4 @@
-{# Fragment partagé par la liste et la mise en avant. #}
+{# Fragment shared by the list and the highlight. #}
 <article class="etk-card{% if offer.is_recent %} etk-card--recent{% endif %}">
     <header class="etk-card__header">
         <h3 class="etk-card__title">
@@ -8,11 +8,11 @@
     </header>
 
     <dl class="etk-card__meta">
-        <dt class="etk-card__label">Lieu</dt>
+        <dt class="etk-card__label">Location</dt>
         <dd class="etk-card__value">{{ offer.location }}</dd>
-        <dt class="etk-card__label">Contrat</dt>
+        <dt class="etk-card__label">Contract</dt>
         <dd class="etk-card__value">{{ offer.contract }}</dd>
-        <dt class="etk-card__label">Publiée le</dt>
+        <dt class="etk-card__label">Published</dt>
         <dd class="etk-card__value">
             <time datetime="{{ offer.published_at }}">{{ offer.published_at }}</time>
         </dd>
@@ -21,6 +21,6 @@
     <p class="etk-card__excerpt">{{ offer.excerpt }}</p>
 
     <a class="etk-card__link" href="{{ offer.url }}">
-        Voir l'offre<span class="etk-visually-hidden"> : {{ offer.title }}</span>
+        View offer<span class="etk-visually-hidden">: {{ offer.title }}</span>
     </a>
 </article>

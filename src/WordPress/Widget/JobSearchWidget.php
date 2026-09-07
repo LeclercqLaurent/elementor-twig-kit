@@ -20,7 +20,7 @@ final class JobSearchWidget extends AbstractTwigWidget
 
     public function get_title(): string
     {
-        return 'Offres d\'emploi : recherche';
+        return 'Job offers: search';
     }
 
     public function get_icon(): string
@@ -31,14 +31,14 @@ final class JobSearchWidget extends AbstractTwigWidget
     protected function register_controls(): void
     {
         $this->start_controls_section('content', [
-            'label' => 'Contenu',
+            'label' => 'Content',
             'tab' => Controls_Manager::TAB_CONTENT,
         ]);
 
         $this->add_control('action', [
-            'label' => 'Page de résultats',
+            'label' => 'Results page',
             'type' => Controls_Manager::TEXT,
-            'default' => '/offres',
+            'default' => '/jobs',
         ]);
 
         $this->end_controls_section();
@@ -56,7 +56,7 @@ final class JobSearchWidget extends AbstractTwigWidget
         $query = JobQuery::fromRequest($parameters);
 
         return [
-            'action' => $this->setting('action', '/offres'),
+            'action' => $this->setting('action', '/jobs'),
             'id_prefix' => $this->domId('etk-search'),
             'contracts' => self::contractOptions(),
             'query' => [

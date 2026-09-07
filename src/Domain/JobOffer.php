@@ -8,11 +8,11 @@ use DateTimeImmutable;
 use ElementorTwigKit\Domain\Exception\InvalidJobOffer;
 
 /**
- * Une offre d'emploi, telle que le rendu la manipule.
+ * A job offer, as the rendering layer handles it.
  *
- * Immuable et valide par construction : impossible d'obtenir une instance dont
- * la référence serait vide ou la date de publication absente. Les gabarits Twig
- * peuvent donc afficher ses champs sans les tester un par un.
+ * Immutable and valid by construction: there is no way to obtain an instance
+ * with an empty reference or a missing publication date. Twig templates can
+ * therefore print its fields without testing them one by one.
  */
 final readonly class JobOffer
 {
@@ -35,7 +35,7 @@ final readonly class JobOffer
         }
 
         if (false === filter_var($url, FILTER_VALIDATE_URL)) {
-            throw InvalidJobOffer::malformedField('url', 'URL absolue attendue');
+            throw InvalidJobOffer::malformedField('url', 'an absolute URL is expected');
         }
     }
 
@@ -45,8 +45,8 @@ final readonly class JobOffer
     }
 
     /**
-     * Vue aplatie destinée aux gabarits : Twig reçoit des scalaires déjà
-     * présentables, jamais la charge utile brute de l'API.
+     * A flattened view for the templates: Twig receives scalars that are already
+     * presentable, never the raw API payload.
      *
      * @return array<string, string|bool>
      */

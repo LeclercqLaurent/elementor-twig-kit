@@ -20,16 +20,16 @@ use ElementorTwigKit\WordPress\Widget\JobListWidget;
 use ElementorTwigKit\WordPress\Widget\JobSearchWidget;
 
 /**
- * Amorçage du plugin.
+ * Plugin bootstrap.
  *
- * Toute la construction d'objets a lieu ici et nulle part ailleurs : c'est ce
- * qui permet au reste du code de ne dépendre que d'interfaces, donc d'être
- * testé sans WordPress ni réseau.
+ * All object construction happens here and nowhere else, which is what lets the
+ * rest of the code depend on interfaces only, and therefore be tested with
+ * neither WordPress nor a network.
  *
- * Le point de conception à retenir est l'échec : une configuration incomplète
- * **désactive les widgets et journalise**, elle ne lève pas d'erreur fatale. Un
- * plugin qui interrompt le rendu d'un site en production parce qu'une clé
- * manque cause plus de dégâts que la fonctionnalité qu'il apporte.
+ * The design point to remember is failure: an incomplete configuration
+ * **disables the widgets and logs**, it never raises a fatal error. A plugin
+ * that interrupts the rendering of a production site because one key is missing
+ * does more damage than the feature it brings.
  */
 final readonly class Plugin
 {
@@ -75,7 +75,7 @@ final readonly class Plugin
         try {
             return PluginConfig::fromEnvironment(Environment::fromFile($this->pluginDirectory . '/.env'));
         } catch (MissingConfiguration $exception) {
-            $logger->warning('Widgets désactivés. ' . $exception->getMessage());
+            $logger->warning('Widgets disabled. ' . $exception->getMessage());
 
             return null;
         }

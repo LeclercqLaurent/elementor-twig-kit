@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace ElementorTwigKit\Infrastructure\Api;
 
 /**
- * Port bas niveau du transport HTTP.
+ * The low-level HTTP transport port.
  *
- * Il existe pour une seule raison : rendre la source distante testable sans
- * réseau. Les tests injectent un transport en mémoire, la production injecte
- * cURL, et le code qui interprète la réponse est le même dans les deux cas.
+ * It exists for one reason: to make the remote source testable without a
+ * network. Tests inject an in-memory transport, production injects cURL, and the
+ * code interpreting the response is the same in both cases.
  */
 interface HttpClient
 {

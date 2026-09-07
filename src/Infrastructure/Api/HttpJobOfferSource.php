@@ -9,7 +9,7 @@ use ElementorTwigKit\Domain\Port\JobOfferSource;
 use ElementorTwigKit\Infrastructure\Config\PluginConfig;
 
 /**
- * Adaptateur de production du port « source d'offres » : une API REST distante.
+ * The production adapter of the offer source port: a remote REST API.
  */
 final readonly class HttpJobOfferSource implements JobOfferSource
 {

@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 final class PluginConfigTest extends TestCase
 {
-    public function testSansConfigurationLePluginDemarreEnModeDemonstration(): void
+    public function testWithNoConfigurationThePluginStartsInDemoMode(): void
     {
         $config = PluginConfig::fromEnvironment(Environment::fromArray([]));
 
@@ -21,7 +21,7 @@ final class PluginConfigTest extends TestCase
         self::assertFalse($config->debug);
     }
 
-    public function testEnModeReelLesClesVitalesManquantesSontNommees(): void
+    public function testInLiveModeMissingVitalKeysAreNamed(): void
     {
         $this->expectException(MissingConfiguration::class);
         $this->expectExceptionMessage('JOBS_API_URL, JOBS_API_TOKEN');
@@ -29,7 +29,7 @@ final class PluginConfigTest extends TestCase
         PluginConfig::fromEnvironment(Environment::fromArray(['JOBS_DEMO_MODE' => 'false']));
     }
 
-    public function testEnModeReelUneSeuleCleManquanteSuffitAEchouer(): void
+    public function testInLiveModeASingleMissingKeyIsEnoughToFail(): void
     {
         $this->expectException(MissingConfiguration::class);
         $this->expectExceptionMessage('JOBS_API_TOKEN');
@@ -40,12 +40,12 @@ final class PluginConfigTest extends TestCase
         ]));
     }
 
-    public function testLUrlDApiPerdSonSlashFinalEtLesDelaisOntUnPlancher(): void
+    public function testTheApiUrlLosesItsTrailingSlashAndDelaysHaveAFloor(): void
     {
         $config = PluginConfig::fromEnvironment(Environment::fromArray([
             'JOBS_DEMO_MODE' => 'false',
             'JOBS_API_URL' => 'https://api.example.invalid/v1/',
-            'JOBS_API_TOKEN' => 'jeton',
+            'JOBS_API_TOKEN' => 'token',
             'JOBS_API_TIMEOUT' => '0',
             'JOBS_CACHE_TTL' => '-10',
             'JOBS_DEBUG' => 'true',

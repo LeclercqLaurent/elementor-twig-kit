@@ -9,13 +9,13 @@ use ElementorTwigKit\Infrastructure\Api\TransportFailure;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Le seul adaptateur qui touche le réseau. Le test reste hors-ligne : il vise
- * un port fermé sur la boucle locale, ce qui échoue immédiatement et sans
- * résolution DNS : la suite ne dépend donc d'aucune connectivité.
+ * The only adapter that touches the network. The test stays offline: it aims at
+ * a closed port on the loopback interface, which fails immediately and with no
+ * DNS resolution, so the suite depends on no connectivity at all.
  */
 final class CurlHttpClientTest extends TestCase
 {
-    public function testUneConnexionRefuseeDevientUnePanneDeTransportNommee(): void
+    public function testARefusedConnectionBecomesANamedTransportFailure(): void
     {
         $this->expectException(TransportFailure::class);
         $this->expectExceptionMessage('http://127.0.0.1:1/offers');
@@ -23,7 +23,7 @@ final class CurlHttpClientTest extends TestCase
         (new CurlHttpClient())->getJson('http://127.0.0.1:1/offers', ['Accept' => 'application/json'], 1);
     }
 
-    public function testUneUrlNonExploitableNEchappePasDuTypeDException(): void
+    public function testAnUnusableUrlDoesNotEscapeTheExceptionType(): void
     {
         $this->expectException(TransportFailure::class);
 

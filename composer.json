@@ -1,6 +1,6 @@
 {
     "name": "codeam/elementor-twig-kit",
-    "description": "Preuve de concept : des widgets Elementor rendus par Twig, configurés par .env, testés hors-ligne et analysés au level 9.",
+    "description": "Proof of concept: Elementor widgets rendered through Twig instead of echoed HTML, configured by a .env file, with a domain testable without WordPress or a network.",
     "type": "wordpress-plugin",
     "license": "MIT",
     "keywords": [

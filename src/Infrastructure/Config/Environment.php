@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace ElementorTwigKit\Infrastructure\Config;
 
 /**
- * Lecteur de fichier « .env », volontairement minimal.
+ * A deliberately minimal ".env" reader.
  *
- * Les secrets d'un plugin WordPress n'ont rien à faire dans la base : ils vivent
- * dans un fichier non versionné, propre à chaque serveur, qui survit à un
- * déploiement par « git reset --hard ». Cinquante lignes suffisent : inutile de
- * traîner une dépendance pour lire des paires clé/valeur.
+ * The secrets of a WordPress plugin have no business in the database: they live
+ * in an unversioned file, specific to each server, that survives a deployment by
+ * "git reset --hard". Fifty lines are enough, so there is no point in dragging
+ * in a dependency to read key/value pairs.
  */
 final class Environment
 {

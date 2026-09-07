@@ -7,18 +7,18 @@ namespace ElementorTwigKit\Domain\Exception;
 use DomainException;
 
 /**
- * Exception dédiée au contexte « offres » : une donnée entrante non conforme
- * ne remonte jamais sous la forme d'une exception générique du langage.
+ * Exception dedicated to the offers context: malformed incoming data never
+ * surfaces as a generic language exception.
  */
 final class InvalidJobOffer extends DomainException
 {
     public static function emptyField(string $field): self
     {
-        return new self(sprintf('Champ obligatoire vide : « %s ».', $field));
+        return new self(sprintf('Required field is empty: "%s".', $field));
     }
 
     public static function malformedField(string $field, string $expectation): self
     {
-        return new self(sprintf('Champ « %s » mal formé : %s.', $field, $expectation));
+        return new self(sprintf('Field "%s" is malformed: %s.', $field, $expectation));
     }
 }

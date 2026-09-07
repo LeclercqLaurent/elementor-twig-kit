@@ -8,12 +8,12 @@ use Elementor\Widget_Base;
 use ElementorTwigKit\WordPress\Services;
 
 /**
- * Socle des widgets : un widget déclare son gabarit et son contexte, jamais son
- * balisage.
+ * The widget base: a widget declares its template and its context, never its
+ * markup.
  *
- * La méthode « render » d'Elementor attend un affichage direct ; on la garde
- * réduite à un « echo » de ce que Twig a produit, pour que tout ce qui est
- * testable (la construction du contexte) le reste vraiment.
+ * Elementor's "render" method expects direct output, so it is kept down to an
+ * "echo" of what Twig produced, which keeps everything testable (the building of
+ * the context) genuinely testable.
  */
 abstract class AbstractTwigWidget extends Widget_Base
 {
@@ -37,7 +37,7 @@ abstract class AbstractTwigWidget extends Widget_Base
     abstract protected function templateContext(): array;
 
     /**
-     * Lecture d'un réglage Elementor, ramenée à une chaîne sûre.
+     * Reads an Elementor setting, narrowed down to a safe string.
      */
     protected function setting(string $key, string $default = ''): string
     {
@@ -48,9 +48,9 @@ abstract class AbstractTwigWidget extends Widget_Base
     }
 
     /**
-     * Identifiant DOM stable et unique : deux widgets identiques posés sur la
-     * même page ne doivent pas produire deux fois le même « id », sous peine
-     * d'associer un label au mauvais champ.
+     * A stable, unique DOM id: two identical widgets dropped on the same page
+     * must not produce the same "id" twice, or a label ends up bound to the
+     * wrong field.
      */
     protected function domId(string $prefix): string
     {

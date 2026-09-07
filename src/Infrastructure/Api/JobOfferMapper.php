@@ -13,11 +13,11 @@ use Exception;
 use Throwable;
 
 /**
- * Traduit la charge utile de l'API en objets du domaine.
+ * Translates the API payload into domain objects.
  *
- * Parti pris : une entrée invalide est **ignorée et journalisée**, pas fatale.
- * Une seule offre mal saisie côté back-office ne doit pas vider la page de
- * résultats du site public.
+ * Deliberate stance: an invalid entry is **skipped and logged**, never fatal. A
+ * single badly filled offer in the back office must not empty the results page
+ * of the public site.
  */
 final readonly class JobOfferMapper
 {
@@ -58,7 +58,7 @@ final readonly class JobOfferMapper
         $items = is_array($decoded) && isset($decoded['items']) ? $decoded['items'] : $decoded;
 
         if (!is_array($items)) {
-            throw TransportFailure::malformedPayload('liste d\'offres attendue');
+            throw TransportFailure::malformedPayload('a list of offers is expected');
         }
 
         return array_values(array_filter($items, 'is_array'));
@@ -81,7 +81,7 @@ final readonly class JobOfferMapper
                 url: $this->string($item, 'url'),
             );
         } catch (Exception $exception) {
-            $this->logger->warning(sprintf('Offre n°%d ignorée : %s', $index, $exception->getMessage()));
+            $this->logger->warning(sprintf('Offer #%d skipped: %s', $index, $exception->getMessage()));
 
             return null;
         }

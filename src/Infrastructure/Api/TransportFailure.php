@@ -10,16 +10,16 @@ final class TransportFailure extends RuntimeException
 {
     public static function network(string $url, string $reason): self
     {
-        return new self(sprintf('Appel à « %s » impossible : %s.', $url, $reason));
+        return new self(sprintf('Call to "%s" failed: %s.', $url, $reason));
     }
 
     public static function status(string $url, int $status): self
     {
-        return new self(sprintf('Appel à « %s » rejeté avec le statut HTTP %d.', $url, $status));
+        return new self(sprintf('Call to "%s" was rejected with HTTP status %d.', $url, $status));
     }
 
     public static function malformedPayload(string $reason): self
     {
-        return new self(sprintf('Réponse illisible : %s.', $reason));
+        return new self(sprintf('Unreadable response: %s.', $reason));
     }
 }

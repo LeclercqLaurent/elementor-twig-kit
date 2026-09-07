@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class LocationTest extends TestCase
 {
-    public function testLePaysEstNormaliseEnMajuscules(): void
+    public function testTheCountryIsNormalisedToUpperCase(): void
     {
         $location = new Location(' Lyon ', 'fr');
 
@@ -19,21 +19,21 @@ final class LocationTest extends TestCase
         self::assertSame('Lyon (FR)', (string) $location);
     }
 
-    public function testUneVilleVideEstRefusee(): void
+    public function testAnEmptyCityIsRejected(): void
     {
         $this->expectException(InvalidJobOffer::class);
 
         new Location('   ', 'FR');
     }
 
-    public function testUnPaysHorsNormeIsoEstRefuse(): void
+    public function testACountryOutsideTheIsoFormatIsRejected(): void
     {
         $this->expectException(InvalidJobOffer::class);
 
         new Location('Lyon', 'France');
     }
 
-    public function testLaComparaisonIgnoreLaCasseEtAccepteUnCritereVide(): void
+    public function testMatchingIgnoresCaseAndAcceptsAnEmptyNeedle(): void
     {
         $location = new Location('Villeurbanne', 'FR');
 

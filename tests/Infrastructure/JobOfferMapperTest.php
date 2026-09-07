@@ -21,7 +21,7 @@ final class JobOfferMapperTest extends TestCase
         $this->mapper = new JobOfferMapper($this->logger);
     }
 
-    public function testUneOffreComplete(): void
+    public function testACompleteOffer(): void
     {
         $offers = $this->mapper->mapAll(self::payload([self::item()]));
 
@@ -31,53 +31,53 @@ final class JobOfferMapperTest extends TestCase
         self::assertSame(ContractType::FixedTerm, $offers[0]->contract);
     }
 
-    public function testUnContratInconnuRetombeSurLeContratParDefaut(): void
+    public function testAnUnknownContractFallsBackToTheDefaultOne(): void
     {
-        $offers = $this->mapper->mapAll(self::payload([self::item(['contract' => 'portage'])]));
+        $offers = $this->mapper->mapAll(self::payload([self::item(['contract' => 'umbrella'])]));
 
         self::assertSame(ContractType::Permanent, $offers[0]->contract);
     }
 
-    public function testUneOffreInvalideEstIgnoreeEtJournaliseeSansPerdreLesAutres(): void
+    public function testAnInvalidOfferIsSkippedAndLoggedWithoutLosingTheOthers(): void
     {
         $offers = $this->mapper->mapAll(self::payload([
-            self::item(['url' => 'pas-une-url']),
+            self::item(['url' => 'not-a-url']),
             self::item(['reference' => 'DEMO-002']),
         ]));
 
         self::assertCount(1, $offers);
         self::assertSame('DEMO-002', $offers[0]->reference);
         self::assertCount(1, $this->logger->messages);
-        self::assertStringContainsString('Offre n°0 ignorée', $this->logger->messages[0]);
+        self::assertStringContainsString('Offer #0 skipped', $this->logger->messages[0]);
     }
 
-    public function testUneListeNueEstAccepteeAuMemeTitreQuUneEnveloppeItems(): void
+    public function testABareListIsAcceptedJustLikeAnItemsEnvelope(): void
     {
         $offers = $this->mapper->mapAll((string) json_encode([self::item()]));
 
         self::assertCount(1, $offers);
     }
 
-    public function testLesEntreesNonStructureesSontEcartees(): void
+    public function testUnstructuredEntriesAreDiscarded(): void
     {
-        $offers = $this->mapper->mapAll((string) json_encode(['texte', 42, self::item()]));
+        $offers = $this->mapper->mapAll((string) json_encode(['text', 42, self::item()]));
 
         self::assertCount(1, $offers);
     }
 
-    public function testUnJsonIllisibleEstUnePanneDeTransport(): void
+    public function testUnreadableJsonIsATransportFailure(): void
     {
         $this->expectException(TransportFailure::class);
 
-        $this->mapper->mapAll('{ ceci n\'est pas du json');
+        $this->mapper->mapAll('{ this is not json');
     }
 
-    public function testUneChargeUtileQuiNEstPasUneListeEstUnePanneDeTransport(): void
+    public function testAPayloadThatIsNotAListIsATransportFailure(): void
     {
         $this->expectException(TransportFailure::class);
-        $this->expectExceptionMessage('liste d\'offres attendue');
+        $this->expectExceptionMessage('a list of offers is expected');
 
-        $this->mapper->mapAll('{"items": "aucune"}');
+        $this->mapper->mapAll('{"items": "none"}');
     }
 
     /**
@@ -97,14 +97,14 @@ final class JobOfferMapperTest extends TestCase
     {
         return array_merge([
             'reference' => 'DEMO-001',
-            'title' => 'Développeuse PHP',
-            'company' => 'Fabrique Fictive',
+            'title' => 'PHP developer',
+            'company' => 'Fictional Software Works',
             'city' => 'Lyon',
             'country' => 'FR',
             'contract' => 'fixed-term',
-            'excerpt' => 'Un poste de démonstration.',
+            'excerpt' => 'A demonstration position.',
             'published_at' => '2026-09-01',
-            'url' => 'https://example.invalid/offres/demo-001',
+            'url' => 'https://example.invalid/jobs/demo-001',
         ], $overrides);
     }
 }

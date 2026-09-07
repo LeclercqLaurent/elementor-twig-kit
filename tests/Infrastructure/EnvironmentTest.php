@@ -13,13 +13,13 @@ final class EnvironmentTest extends TestCase
 
     protected function setUp(): void
     {
-        $directory = __DIR__ . '/../../var/test';
+        $directory = implode(DIRECTORY_SEPARATOR, [dirname(__DIR__, 2), 'var', 'test']);
 
         if (!is_dir($directory)) {
             mkdir($directory, 0o755, true);
         }
 
-        $this->path = $directory . '/' . uniqid('env-', true);
+        $this->path = $directory . DIRECTORY_SEPARATOR . uniqid('env-', true);
     }
 
     protected function tearDown(): void
@@ -29,21 +29,21 @@ final class EnvironmentTest extends TestCase
         }
     }
 
-    public function testUnFichierAbsentDonneUnEnvironnementVideEtNonUneErreur(): void
+    public function testAMissingFileYieldsAnEmptyEnvironmentRatherThanAnError(): void
     {
-        $environment = Environment::fromFile($this->path . '-inexistant');
+        $environment = Environment::fromFile($this->path . '-missing');
 
-        self::assertSame('repli', $environment->get('JOBS_API_URL', 'repli'));
+        self::assertSame('fallback', $environment->get('JOBS_API_URL', 'fallback'));
     }
 
-    public function testLesCommentairesLesLignesVidesEtLesGuillemetsSontIgnores(): void
+    public function testCommentsBlankLinesAndQuotesAreIgnored(): void
     {
         file_put_contents($this->path, <<<'ENV'
-            # un commentaire
+            # a comment
             JOBS_API_URL="https://api.example.invalid"
 
             JOBS_API_TOKEN='secret'
-            ligne sans signe egal
+            a line with no equals sign
             JOBS_DEBUG = true
             ENV);
 
@@ -54,19 +54,19 @@ final class EnvironmentTest extends TestCase
         self::assertTrue($environment->bool('JOBS_DEBUG'));
     }
 
-    public function testUneValeurVideRetombeSurLeDefaut(): void
+    public function testAnEmptyValueFallsBackToTheDefault(): void
     {
         $environment = Environment::fromArray(['JOBS_API_URL' => '']);
 
-        self::assertSame('defaut', $environment->get('JOBS_API_URL', 'defaut'));
+        self::assertSame('default', $environment->get('JOBS_API_URL', 'default'));
     }
 
-    public function testLesBooleensAcceptentLesEcrituresCourantes(): void
+    public function testBooleansAcceptTheUsualSpellings(): void
     {
         $environment = Environment::fromArray([
             'A' => 'yes', 'B' => 'ON', 'C' => '1',
             'D' => 'no', 'E' => 'off', 'F' => '0',
-            'G' => 'peut-etre',
+            'G' => 'maybe',
         ]);
 
         foreach (['A', 'B', 'C'] as $key) {
@@ -78,14 +78,14 @@ final class EnvironmentTest extends TestCase
         }
 
         self::assertTrue($environment->bool('G', true));
-        self::assertFalse($environment->bool('ABSENTE'));
+        self::assertFalse($environment->bool('MISSING'));
     }
 
-    public function testLesNombresDecimauxRetombentSurLeDefautSiNonNumeriques(): void
+    public function testDecimalsFallBackToTheDefaultWhenNotNumeric(): void
     {
-        $environment = Environment::fromArray(['SEUIL' => '0.7', 'CASSE' => 'beaucoup']);
+        $environment = Environment::fromArray(['THRESHOLD' => '0.7', 'BROKEN' => 'plenty']);
 
-        self::assertSame(0.7, $environment->float('SEUIL', 0.5));
-        self::assertSame(0.5, $environment->float('CASSE', 0.5));
+        self::assertSame(0.7, $environment->float('THRESHOLD', 0.5));
+        self::assertSame(0.5, $environment->float('BROKEN', 0.5));
     }
 }

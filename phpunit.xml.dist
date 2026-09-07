@@ -15,11 +15,11 @@
         </include>
         <exclude>
             <!--
-                La couche WordPress est exclue de la mesure : elle n'est
-                exécutable qu'avec WordPress et Elementor installés. Le parti
-                pris est de la garder anémique (déclaration de contrôles,
-                lecture de réglages, « echo ») et de mettre toute la logique
-                dans le domaine et l'infrastructure, qui sont mesurés.
+                The WordPress layer is excluded from the measurement: it is only
+                runnable with WordPress and Elementor installed. The deliberate
+                stance is to keep it anaemic (declaring controls, reading
+                settings, echoing a string) and to put all the logic in the
+                domain and the infrastructure, which are measured.
             -->
             <directory>src/WordPress</directory>
         </exclude>

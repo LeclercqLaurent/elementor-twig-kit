@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace ElementorTwigKit\Domain;
 
 /**
- * Critères de recherche, construits depuis la requête HTTP puis passés tels
- * quels à la source. Regrouper ces primitives en un objet évite de propager
- * quatre paramètres positionnels dans toute la chaîne d'appel.
+ * Search criteria, built from the HTTP request and passed as-is to the source.
+ * Grouping these primitives into one object avoids threading four positional
+ * parameters through the whole call chain.
  */
 final readonly class JobQuery
 {
@@ -26,9 +26,9 @@ final readonly class JobQuery
     }
 
     /**
-     * Construit les critères depuis des paramètres non fiables (typiquement
-     * $_GET) : tout ce qui n'est pas reconnu est ignoré plutôt que refusé, une
-     * URL bricolée ne doit pas casser la page.
+     * Builds the criteria from untrusted parameters (typically $_GET): anything
+     * unrecognised is ignored rather than rejected, because a hand-edited URL
+     * must not break the page.
      *
      * @param array<string, mixed> $parameters
      */

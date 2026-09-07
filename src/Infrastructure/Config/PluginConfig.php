@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace ElementorTwigKit\Infrastructure\Config;
 
 /**
- * Configuration validée du plugin.
+ * The plugin's validated configuration.
  *
- * Le point important est le mode dégradé : sans API configurée, le plugin ne
- * plante pas et ne laisse pas non plus une page à moitié rendue. Il bascule
- * sur le jeu de démonstration embarqué et le signale. Sur un site en
- * production, un plugin qui casse la page d'accueil parce qu'une clé manque
- * coûte plus cher que la fonctionnalité qu'il apporte.
+ * What matters here is the degraded mode: with no API configured, the plugin
+ * neither crashes nor leaves a half-rendered page. It falls back to the bundled
+ * demo dataset and says so. On a production site, a plugin that breaks the home
+ * page because one key is missing costs more than the feature it brings.
  */
 final readonly class PluginConfig
 {

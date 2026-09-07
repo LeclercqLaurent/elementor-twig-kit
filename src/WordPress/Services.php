@@ -11,14 +11,14 @@ use ElementorTwigKit\Infrastructure\Rendering\Renderer;
 use RuntimeException;
 
 /**
- * Racine de composition, exposée statiquement, et c'est un compromis assumé.
+ * The composition root, exposed statically, and that is a deliberate trade-off.
  *
- * Elementor instancie lui-même les classes de widgets, sans argument, à chaque
- * rendu : on ne peut donc pas leur injecter leurs dépendances par le
- * constructeur. Les deux issues sont un localisateur de services ou des
- * fonctions globales ; le localisateur au moins nomme ses dépendances, se
- * remplace intégralement dans un test, et confine la contrainte à cette seule
- * classe. Tout le reste du plugin reçoit ses collaborateurs par injection.
+ * Elementor instantiates widget classes itself, with no arguments, on every
+ * render, so their dependencies cannot come through the constructor. The two
+ * ways out are a service locator or global functions; the locator at least names
+ * its dependencies, can be replaced wholesale in a test, and confines the
+ * constraint to this single class. Everything else in the plugin receives its
+ * collaborators by injection.
  */
 final class Services
 {
@@ -40,7 +40,7 @@ final class Services
     public static function get(): self
     {
         if (!self::$instance instanceof self) {
-            throw new RuntimeException('Services non initialisés : Plugin::boot() n\'a pas été appelé.');
+            throw new RuntimeException('Services are not initialised: Plugin::boot() was never called.');
         }
 
         return self::$instance;

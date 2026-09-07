@@ -13,20 +13,20 @@ use PHPUnit\Framework\TestCase;
 
 final class JobQueryTest extends TestCase
 {
-    public function testLaLimiteEstBorneeDesLaConstruction(): void
+    public function testTheLimitIsBoundedOnConstruction(): void
     {
         self::assertSame(JobQuery::MAX_LIMIT, (new JobQuery(limit: 5000))->limit);
         self::assertSame(1, (new JobQuery(limit: -3))->limit);
         self::assertSame(12, (new JobQuery(limit: 12))->limit);
     }
 
-    public function testUneRequeteHttpBricoleeNeCassePasLaRecherche(): void
+    public function testAHandEditedRequestDoesNotBreakTheSearch(): void
     {
         $query = JobQuery::fromRequest([
-            'q' => ['tableau', 'inattendu'],
+            'q' => ['unexpected', 'array'],
             'city' => '  Lyon  ',
-            'contract' => 'CONTRAT-INEXISTANT',
-            'limit' => 'beaucoup',
+            'contract' => 'NO-SUCH-CONTRACT',
+            'limit' => 'plenty',
         ]);
 
         self::assertSame('', $query->keywords);
@@ -35,7 +35,7 @@ final class JobQueryTest extends TestCase
         self::assertSame(1, $query->limit);
     }
 
-    public function testLesCriteresReconnusSontRetenus(): void
+    public function testRecognisedCriteriaAreKept(): void
     {
         $query = JobQuery::fromRequest(['q' => 'php', 'contract' => 'Fixed-Term', 'limit' => '3']);
 
@@ -44,22 +44,22 @@ final class JobQueryTest extends TestCase
         self::assertSame(3, $query->limit);
     }
 
-    public function testUnCritereVideNeFiltreRien(): void
+    public function testAnEmptyCriterionFiltersNothing(): void
     {
         self::assertTrue((new JobQuery())->matches(self::offer()));
     }
 
-    public function testLeFiltrageCombineContratVilleEtMotsCles(): void
+    public function testFilteringCombinesContractCityAndKeywords(): void
     {
         $offer = self::offer();
 
-        self::assertTrue((new JobQuery(keywords: 'FICTIVE'))->matches($offer));
+        self::assertTrue((new JobQuery(keywords: 'FICTIONAL'))->matches($offer));
         self::assertFalse((new JobQuery(keywords: 'kotlin'))->matches($offer));
         self::assertFalse((new JobQuery(city: 'Nantes'))->matches($offer));
         self::assertFalse((new JobQuery(contract: ContractType::Internship))->matches($offer));
     }
 
-    public function testLesParametresDApiOmettentLesCriteresVides(): void
+    public function testApiParametersOmitEmptyCriteria(): void
     {
         $parameters = (new JobQuery(keywords: 'php', contract: ContractType::Freelance, limit: 4))
             ->toQueryParameters();
@@ -71,13 +71,13 @@ final class JobQueryTest extends TestCase
     {
         return new JobOffer(
             reference: 'DEMO-001',
-            title: 'Développeuse PHP',
-            company: 'Fabrique Fictive',
+            title: 'PHP developer',
+            company: 'Fictional Software Works',
             location: new Location('Lyon', 'FR'),
             contract: ContractType::Permanent,
-            excerpt: 'Un poste de démonstration.',
+            excerpt: 'A demonstration position.',
             publishedAt: new DateTimeImmutable('2026-09-01'),
-            url: 'https://example.invalid/offres/demo-001',
+            url: 'https://example.invalid/jobs/demo-001',
         );
     }
 }

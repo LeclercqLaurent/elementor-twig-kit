@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace ElementorTwigKit\Domain;
 
 /**
- * Nature du contrat proposé.
+ * The kind of contract on offer.
  *
- * Un enum plutôt qu'une chaîne : la valeur venue de l'API est validée une fois,
- * au mapping, et plus jamais ensuite : ni dans les filtres, ni dans les vues.
+ * An enum rather than a string: the value coming from the API is validated once,
+ * at mapping time, and never again, neither in the filters nor in the views.
  */
 enum ContractType: string
 {
@@ -21,18 +21,17 @@ enum ContractType: string
     public function label(): string
     {
         return match ($this) {
-            self::Permanent => 'CDI',
-            self::FixedTerm => 'CDD',
-            self::Internship => 'Stage',
+            self::Permanent => 'Permanent',
+            self::FixedTerm => 'Fixed term',
+            self::Internship => 'Internship',
             self::Freelance => 'Freelance',
-            self::Apprenticeship => 'Alternance',
+            self::Apprenticeship => 'Apprenticeship',
         };
     }
 
     /**
-     * Tolère ce qu'une API renvoie réellement : casse variable, tirets, espaces.
-     * Une valeur inconnue vaut null, et c'est au mapping de décider quoi en
-     * faire.
+     * Tolerates what an API actually returns: mixed case, dashes, stray spaces.
+     * An unknown value yields null, and the mapper decides what to do with it.
      */
     public static function tryFromLoose(string $raw): ?self
     {

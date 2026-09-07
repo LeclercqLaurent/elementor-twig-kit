@@ -14,7 +14,7 @@ final class MissingConfiguration extends RuntimeException
     public static function keys(array $keys): self
     {
         return new self(sprintf(
-            'Configuration incomplète : %s. Copier « .env.dist » en « .env » et renseigner ces clés.',
+            'Incomplete configuration: %s. Copy ".env.dist" to ".env" and fill those keys in.',
             implode(', ', $keys),
         ));
     }

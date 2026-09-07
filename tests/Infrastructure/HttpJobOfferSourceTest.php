@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 final class HttpJobOfferSourceTest extends TestCase
 {
-    public function testLesCriteresPartentDansLUrlEtLeJetonDansLEntete(): void
+    public function testCriteriaGoIntoTheUrlAndTheTokenIntoTheHeader(): void
     {
         $client = new InMemoryHttpClient('{"items": []}');
 
@@ -31,28 +31,28 @@ final class HttpJobOfferSourceTest extends TestCase
         self::assertStringContainsString('q=php', $client->lastUrl);
         self::assertStringContainsString('city=Lyon', $client->lastUrl);
         self::assertStringContainsString('contract=freelance', $client->lastUrl);
-        self::assertSame('Bearer jeton', $client->lastHeaders['Authorization']);
+        self::assertSame('Bearer token', $client->lastHeaders['Authorization']);
         self::assertSame('application/json', $client->lastHeaders['Accept']);
     }
 
-    public function testLaReponseEstTraduiteEnObjetsDuDomaine(): void
+    public function testTheResponseIsTranslatedIntoDomainObjects(): void
     {
         $client = new InMemoryHttpClient((string) json_encode(['items' => [[
             'reference' => 'DEMO-009',
-            'title' => 'Ingénieure plateforme',
-            'company' => 'Coopérative Imaginaire',
-            'city' => 'Genève',
+            'title' => 'Platform engineer',
+            'company' => 'Imaginary Cooperative',
+            'city' => 'Geneva',
             'country' => 'CH',
             'contract' => 'permanent',
-            'excerpt' => 'Un poste de démonstration.',
+            'excerpt' => 'A demonstration position.',
             'published_at' => '2026-08-01',
-            'url' => 'https://example.invalid/offres/demo-009',
+            'url' => 'https://example.invalid/jobs/demo-009',
         ]]]));
 
         $offers = $this->source($client)->search(new JobQuery());
 
         self::assertCount(1, $offers);
-        self::assertSame('Genève (CH)', (string) $offers[0]->location);
+        self::assertSame('Geneva (CH)', (string) $offers[0]->location);
     }
 
     private function source(InMemoryHttpClient $client): HttpJobOfferSource
@@ -60,7 +60,7 @@ final class HttpJobOfferSourceTest extends TestCase
         $config = PluginConfig::fromEnvironment(Environment::fromArray([
             'JOBS_DEMO_MODE' => 'false',
             'JOBS_API_URL' => 'https://api.example.invalid/v1',
-            'JOBS_API_TOKEN' => 'jeton',
+            'JOBS_API_TOKEN' => 'token',
         ]));
 
         return new HttpJobOfferSource($client, new JobOfferMapper(new SpyLogger()), $config);

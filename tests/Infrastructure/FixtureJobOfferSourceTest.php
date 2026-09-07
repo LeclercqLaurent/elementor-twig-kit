@@ -15,40 +15,40 @@ final class FixtureJobOfferSourceTest extends TestCase
 {
     private const FIXTURE = __DIR__ . '/../../resources/fixtures/job-offers.json';
 
-    public function testLeJeuEmbarqueEstIntegralementValide(): void
+    public function testTheBundledDatasetIsEntirelyValid(): void
     {
         $logger = new SpyLogger();
         $offers = $this->source($logger, self::FIXTURE)->search(new JobQuery(limit: JobQuery::MAX_LIMIT));
 
-        self::assertSame([], $logger->messages, 'aucune offre de démonstration ne doit être rejetée');
+        self::assertSame([], $logger->messages, 'no demo offer should be rejected');
         self::assertGreaterThanOrEqual(5, count($offers));
     }
 
-    public function testLeFiltrageEnMemoireSuitLesMemesCriteresQueLApi(): void
+    public function testInMemoryFilteringFollowsTheSameCriteriaAsTheApi(): void
     {
         $source = $this->source(new SpyLogger(), self::FIXTURE);
 
-        $lyonnaises = $source->search(new JobQuery(city: 'lyon', limit: JobQuery::MAX_LIMIT));
-        self::assertNotEmpty($lyonnaises);
+        $inLyon = $source->search(new JobQuery(city: 'lyon', limit: JobQuery::MAX_LIMIT));
+        self::assertNotEmpty($inLyon);
 
-        foreach ($lyonnaises as $offer) {
+        foreach ($inLyon as $offer) {
             self::assertSame('Lyon', $offer->location->city);
         }
 
-        $stages = $source->search(new JobQuery(contract: ContractType::Internship, limit: JobQuery::MAX_LIMIT));
-        self::assertCount(1, $stages);
+        $internships = $source->search(new JobQuery(contract: ContractType::Internship, limit: JobQuery::MAX_LIMIT));
+        self::assertCount(1, $internships);
     }
 
-    public function testLaLimiteEstAppliqueeApresLeFiltrage(): void
+    public function testTheLimitIsAppliedAfterFiltering(): void
     {
         $offers = $this->source(new SpyLogger(), self::FIXTURE)->search(new JobQuery(limit: 2));
 
         self::assertCount(2, $offers);
     }
 
-    public function testUnJeuDeDonneesAbsentDonneUneListeVideEtNonUneErreur(): void
+    public function testAMissingDatasetYieldsAnEmptyListRatherThanAnError(): void
     {
-        $offers = $this->source(new SpyLogger(), __DIR__ . '/introuvable.json')->search(new JobQuery());
+        $offers = $this->source(new SpyLogger(), __DIR__ . '/no-such-file.json')->search(new JobQuery());
 
         self::assertSame([], $offers);
     }

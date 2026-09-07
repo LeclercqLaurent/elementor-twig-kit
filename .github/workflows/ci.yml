@@ -21,16 +21,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Installer PHP
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           coverage: pcov
           tools: none
 
-      # Le lock est résolu pour PHP 8.2 (config.platform), donc installable tel
-      # quel sur toute la matrice : la borne annoncée est réellement vérifiée.
-      - name: Installer les dépendances
+      # The lock file is resolved for PHP 8.2 (config.platform), so it installs
+      # as-is across the whole matrix and the advertised range is really tested.
+      - name: Install dependencies
         uses: ramsey/composer-install@v3
 
       - name: PHP-CS-Fixer (PSR-12)
@@ -39,7 +39,7 @@ jobs:
       - name: PHPStan (level 9)
         run: vendor/bin/phpstan analyse --no-progress
 
-      - name: PHPUnit + couverture (plancher 90 %)
+      - name: PHPUnit and coverage floor
         run: |
           vendor/bin/phpunit --coverage-clover var/clover.xml
           php scripts/coverage-check.php var/clover.xml 90

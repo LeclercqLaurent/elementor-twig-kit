@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 /**
- * Stubs Elementor, pour l'analyse statique et les tests uniquement.
+ * Elementor stubs, for static analysis and tests only.
  *
- * Elementor n'est pas une dépendance Composer : il est installé par WordPress.
- * Sans ces déclarations, PHPStan ne saurait rien des classes étendues par les
- * widgets et la CI devrait se contenter d'ignorer les erreurs. Ce fichier n'est
- * jamais chargé à l'exécution.
+ * Elementor is not a Composer dependency: WordPress installs it. Without these
+ * declarations PHPStan would know nothing about the classes the widgets extend,
+ * and CI would have to settle for ignoring the errors. This file is never loaded
+ * at runtime.
  */
 
 namespace Elementor;

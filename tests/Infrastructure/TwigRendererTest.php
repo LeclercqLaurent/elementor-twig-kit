@@ -23,32 +23,32 @@ final class TwigRendererTest extends TestCase
         $this->renderer = new TwigRenderer(__DIR__ . '/../../templates', $this->logger);
     }
 
-    public function testLaListeRendLesOffresEtAnnonceLeModeDemonstration(): void
+    public function testTheListRendersOffersAndAnnouncesDemoMode(): void
     {
         $html = $this->renderer->render('job-list.html.twig', $this->listContext());
 
-        self::assertStringContainsString('<h3 class="etk-list__heading" id="nos-offres">Nos offres</h3>', $html);
-        self::assertStringContainsString('Jeu de démonstration', $html);
-        self::assertStringContainsString('Développeuse PHP', $html);
-        self::assertStringContainsString('aria-labelledby="nos-offres"', $html);
+        self::assertStringContainsString('<h3 class="etk-list__heading" id="our-openings">Our openings</h3>', $html);
+        self::assertStringContainsString('Demo dataset', $html);
+        self::assertStringContainsString('PHP developer', $html);
+        self::assertStringContainsString('aria-labelledby="our-openings"', $html);
     }
 
-    public function testUneListeVideAfficheUnMessageEtNonUneSectionMuette(): void
+    public function testAnEmptyListShowsAMessageRatherThanAMuteSection(): void
     {
         $html = $this->renderer->render('job-list.html.twig', [
             ...$this->listContext(),
             'offers' => [],
         ]);
 
-        self::assertStringContainsString('Aucune offre ne correspond', $html);
+        self::assertStringContainsString('No offer matches this search', $html);
         self::assertStringNotContainsString('<ul', $html);
     }
 
     /**
-     * L'intérêt central de Twig ici : l'échappement n'est pas une discipline à
-     * tenir ligne à ligne, c'est le comportement par défaut du moteur.
+     * The central point of using Twig here: escaping is not a discipline to keep
+     * up line by line, it is the engine's default behaviour.
      */
-    public function testLeContenuVenuDeLApiEstEchappeSansGesteDuDeveloppeur(): void
+    public function testContentComingFromTheApiIsEscapedWithNoDeveloperEffort(): void
     {
         $html = $this->renderer->render('job-list.html.twig', [
             ...$this->listContext(),
@@ -59,12 +59,12 @@ final class TwigRendererTest extends TestCase
         self::assertStringContainsString('&lt;script&gt;', $html);
     }
 
-    public function testLeFormulaireAssocieChaqueChampASonLabel(): void
+    public function testTheFormBindsEveryFieldToItsLabel(): void
     {
         $html = $this->renderer->render('job-search.html.twig', [
-            'action' => '/offres',
+            'action' => '/jobs',
             'id_prefix' => 'etk-search-1234',
-            'contracts' => ['permanent' => 'CDI', 'internship' => 'Stage'],
+            'contracts' => ['permanent' => 'Permanent', 'internship' => 'Internship'],
             'query' => ['keywords' => 'php', 'city' => '', 'contract' => 'internship'],
         ]);
 
@@ -73,26 +73,26 @@ final class TwigRendererTest extends TestCase
             self::assertStringContainsString(sprintf('id="etk-search-1234-%s"', $field), $html);
         }
 
-        self::assertStringContainsString('<option value="internship" selected>Stage</option>', $html);
+        self::assertStringContainsString('<option value="internship" selected>Internship</option>', $html);
         self::assertStringContainsString('value="php"', $html);
     }
 
-    public function testUnGabaritIntrouvableEteintLeBlocEtJournaliseLaCause(): void
+    public function testAMissingTemplateBlanksTheBlockAndLogsTheCause(): void
     {
-        $html = $this->renderer->render('inexistant.html.twig', []);
+        $html = $this->renderer->render('no-such-template.html.twig', []);
 
         self::assertSame('', $html);
         self::assertCount(1, $this->logger->messages);
-        self::assertStringContainsString('inexistant.html.twig', $this->logger->messages[0]);
+        self::assertStringContainsString('no-such-template.html.twig', $this->logger->messages[0]);
     }
 
     /**
-     * « strict_variables » transforme une clé oubliée en panne visible dans les
-     * journaux plutôt qu'en trou silencieux dans la page.
+     * "strict_variables" turns a forgotten key into a failure visible in the
+     * logs, rather than a silent hole in the page.
      */
-    public function testUneVariableManquanteEstUnePanneJournaliseeEtNonUnTrouSilencieux(): void
+    public function testAMissingVariableIsALoggedFailureAndNotASilentHole(): void
     {
-        $html = $this->renderer->render('job-list.html.twig', ['heading' => 'Nos offres']);
+        $html = $this->renderer->render('job-list.html.twig', ['heading' => 'Our openings']);
 
         self::assertSame('', $html);
         self::assertCount(1, $this->logger->messages);
@@ -104,9 +104,9 @@ final class TwigRendererTest extends TestCase
     private function listContext(): array
     {
         return [
-            'heading' => 'Nos offres',
+            'heading' => 'Our openings',
             'heading_level' => 'h3',
-            'heading_id' => 'nos-offres',
+            'heading_id' => 'our-openings',
             'demo_mode' => true,
             'offers' => [$this->offerContext()],
         ];
@@ -115,17 +115,17 @@ final class TwigRendererTest extends TestCase
     /**
      * @return array<string, string|bool>
      */
-    private function offerContext(string $title = 'Développeuse PHP'): array
+    private function offerContext(string $title = 'PHP developer'): array
     {
         return (new JobOffer(
             reference: 'DEMO-001',
             title: $title,
-            company: 'Fabrique Fictive',
+            company: 'Fictional Software Works',
             location: new Location('Lyon', 'FR'),
             contract: ContractType::Permanent,
-            excerpt: 'Un poste de démonstration.',
+            excerpt: 'A demonstration position.',
             publishedAt: new DateTimeImmutable('2026-09-01'),
-            url: 'https://example.invalid/offres/demo-001',
+            url: 'https://example.invalid/jobs/demo-001',
         ))->toTemplateContext(new DateTimeImmutable('2026-09-07'));
     }
 }

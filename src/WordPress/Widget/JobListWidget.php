@@ -10,7 +10,7 @@ use ElementorTwigKit\Domain\JobQuery;
 use ElementorTwigKit\WordPress\Services;
 
 /**
- * Liste d'offres filtrée par les paramètres d'URL courants.
+ * A list of offers filtered by the current URL parameters.
  */
 final class JobListWidget extends AbstractTwigWidget
 {
@@ -23,7 +23,7 @@ final class JobListWidget extends AbstractTwigWidget
 
     public function get_title(): string
     {
-        return 'Offres d\'emploi : liste';
+        return 'Job offers: list';
     }
 
     public function get_icon(): string
@@ -34,25 +34,25 @@ final class JobListWidget extends AbstractTwigWidget
     protected function register_controls(): void
     {
         $this->start_controls_section('content', [
-            'label' => 'Contenu',
+            'label' => 'Content',
             'tab' => Controls_Manager::TAB_CONTENT,
         ]);
 
         $this->add_control('heading', [
-            'label' => 'Titre de la section',
+            'label' => 'Section heading',
             'type' => Controls_Manager::TEXT,
-            'default' => 'Nos offres',
+            'default' => 'Our openings',
         ]);
 
         $this->add_control('heading_level', [
-            'label' => 'Niveau de titre',
+            'label' => 'Heading level',
             'type' => Controls_Manager::SELECT,
             'default' => 'h2',
             'options' => ['h2' => 'H2', 'h3' => 'H3', 'h4' => 'H4'],
         ]);
 
         $this->add_control('limit', [
-            'label' => 'Nombre maximum d\'offres',
+            'label' => 'Maximum number of offers',
             'type' => Controls_Manager::NUMBER,
             'default' => JobQuery::DEFAULT_LIMIT,
         ]);
@@ -72,7 +72,7 @@ final class JobListWidget extends AbstractTwigWidget
         $query = $this->buildQuery();
 
         return [
-            'heading' => $this->setting('heading', 'Nos offres'),
+            'heading' => $this->setting('heading', 'Our openings'),
             'heading_level' => $this->headingLevel(),
             'heading_id' => $this->domId('etk-list'),
             'demo_mode' => $services->config->demoMode,

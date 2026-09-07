@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * Plugin Name: Elementor Twig Kit
- * Description: Preuve de concept : des widgets Elementor rendus par Twig, configurés par un fichier .env, testés hors-ligne.
+ * Description: Proof of concept: Elementor widgets rendered through Twig, configured by a .env file, tested offline.
  * Version: 0.1.0
  * Requires PHP: 8.2
  * Author: Codeam
@@ -19,11 +19,11 @@ if (!defined('ABSPATH')) {
 
 $autoload = __DIR__ . '/vendor/autoload.php';
 
-// Sans « composer install », le plugin s'abstient au lieu de provoquer une
-// erreur fatale sur toutes les pages du site.
+// Without "composer install" the plugin stands down instead of raising a fatal
+// error on every page of the site.
 if (!is_readable($autoload)) {
     add_action('admin_notices', static function (): void {
-        echo '<div class="notice notice-error"><p>Elementor Twig Kit : dépendances absentes, lancer « composer install ».</p></div>';
+        echo '<div class="notice notice-error"><p>Elementor Twig Kit: dependencies are missing, run "composer install".</p></div>';
     });
 
     return;
@@ -32,8 +32,8 @@ if (!is_readable($autoload)) {
 require_once $autoload;
 
 add_action('plugins_loaded', static function (): void {
-    // Elementor est fourni par WordPress, pas par Composer : sa présence se
-    // vérifie à l'exécution, une fois toutes les extensions chargées.
+    // Elementor is provided by WordPress, not by Composer: its presence is
+    // checked at runtime, once every extension has loaded.
     if (!did_action('elementor/loaded')) {
         return;
     }

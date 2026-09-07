@@ -9,13 +9,12 @@ use ElementorTwigKit\Domain\Port\JobOfferSource;
 use ElementorTwigKit\Infrastructure\Api\JobOfferMapper;
 
 /**
- * Source de démonstration : un jeu d'offres fictives embarqué dans le plugin.
+ * The demo source: a set of fictional offers bundled with the plugin.
  *
- * C'est ce qui rend cette preuve de concept exécutable telle quelle, sans API à
- * installer. C'est aussi, sur un vrai site, ce qui permet à un intégrateur de
- * composer ses pages Elementor avant que l'API ne soit prête. Le filtrage se
- * fait ici en mémoire, avec les mêmes critères que ceux envoyés à l'API
- * distante.
+ * It is what makes this proof of concept runnable as-is, with no API to install.
+ * On a real site it is also what lets a builder lay out their Elementor pages
+ * before the API is ready. Filtering happens in memory here, using the same
+ * criteria that would be sent to the remote API.
  */
 final readonly class FixtureJobOfferSource implements JobOfferSource
 {

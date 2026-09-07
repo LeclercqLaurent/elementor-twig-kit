@@ -10,34 +10,34 @@ use PHPUnit\Framework\TestCase;
 
 final class LoggerTest extends TestCase
 {
-    public function testLeJournalDuServeurRecoitUneLignePrefixee(): void
+    public function testTheServerLogReceivesAPrefixedLine(): void
     {
-        $directory = __DIR__ . '/../../var/test';
+        $directory = implode(DIRECTORY_SEPARATOR, [dirname(__DIR__, 2), 'var', 'test']);
 
         if (!is_dir($directory)) {
             mkdir($directory, 0o755, true);
         }
 
-        $file = $directory . '/error.log';
+        $file = $directory . DIRECTORY_SEPARATOR . 'error.log';
         $previous = (string) ini_get('error_log');
 
         ini_set('error_log', $file);
 
         try {
-            (new ErrorLogLogger())->warning('API injoignable');
+            (new ErrorLogLogger())->warning('API unreachable');
         } finally {
             ini_set('error_log', $previous);
         }
 
-        self::assertStringContainsString('[elementor-twig-kit] API injoignable', (string) file_get_contents($file));
+        self::assertStringContainsString('[elementor-twig-kit] API unreachable', (string) file_get_contents($file));
 
         unlink($file);
     }
 
-    public function testLeJournalNeutreNeFaitRienEtNeLevePasDErreur(): void
+    public function testTheNullLoggerDoesNothingAndRaisesNoError(): void
     {
         $this->expectNotToPerformAssertions();
 
-        (new NullLogger())->warning('ignoré');
+        (new NullLogger())->warning('ignored');
     }
 }

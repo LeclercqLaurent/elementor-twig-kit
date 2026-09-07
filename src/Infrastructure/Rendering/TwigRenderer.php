@@ -10,16 +10,16 @@ use Twig\Error\Error as TwigError;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * Rendu des widgets par Twig plutôt que par des « echo » de HTML.
+ * Rendering widgets through Twig instead of "echo"-ing HTML.
  *
- * C'est le cœur de la démonstration. Un widget Elementor rend traditionnellement
- * son balisage en concaténant des chaînes dans du PHP : l'échappement est
- * manuel, donc oublié tôt ou tard, et le balisage devient illisible dès qu'il y
- * a deux conditions. Twig échappe par défaut, sépare la structure de la logique,
- * et rend le gabarit surchargeable par le thème sans toucher au plugin.
+ * This is the heart of the demonstration. An Elementor widget traditionally
+ * renders its markup by concatenating strings in PHP: escaping is manual, hence
+ * forgotten sooner or later, and the markup becomes unreadable as soon as there
+ * are two conditions. Twig escapes by default, separates structure from logic,
+ * and makes the template overridable by the theme without touching the plugin.
  *
- * L'échec de rendu est traité comme une panne de bloc, pas de page : le widget
- * renvoie une chaîne vide et la cause part dans les journaux.
+ * A rendering failure is treated as a broken block, not a broken page: the
+ * widget returns an empty string and the cause goes to the logs.
  */
 final class TwigRenderer implements Renderer
 {
@@ -43,7 +43,7 @@ final class TwigRenderer implements Renderer
         try {
             return $this->twig->render($template, $context);
         } catch (TwigError $error) {
-            $this->logger->warning(sprintf('Rendu de « %s » impossible : %s', $template, $error->getMessage()));
+            $this->logger->warning(sprintf('Could not render "%s": %s', $template, $error->getMessage()));
 
             return '';
         }

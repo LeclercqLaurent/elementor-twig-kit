@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace ElementorTwigKit\Infrastructure\Logging;
 
 /**
- * Écrit dans le journal du serveur, jamais dans la page.
+ * Writes to the server log, never to the page.
  *
- * Un message d'erreur affiché à un visiteur renseigne un attaquant et n'aide
- * personne d'autre ; le préfixe permet de retrouver les lignes du plugin dans un
- * journal WordPress partagé par des dizaines d'extensions.
+ * An error message shown to a visitor informs an attacker and helps nobody else.
+ * The prefix makes the plugin's lines findable in a WordPress log shared by
+ * dozens of extensions.
  */
 final class ErrorLogLogger implements Logger
 {

@@ -10,15 +10,15 @@ use PHPUnit\Framework\TestCase;
 
 final class ContractTypeTest extends TestCase
 {
-    public function testChaqueContratPorteUnLibelleNonVide(): void
+    public function testEveryContractCarriesANonEmptyLabel(): void
     {
         foreach (ContractType::cases() as $case) {
             self::assertNotSame('', $case->label());
         }
     }
 
-    #[DataProvider('valeursTolerees')]
-    public function testLaLectureTolereLaCasseEtLesTirets(string $raw, ContractType $expected): void
+    #[DataProvider('toleratedValues')]
+    public function testReadingToleratesCaseAndDashes(string $raw, ContractType $expected): void
     {
         self::assertSame($expected, ContractType::tryFromLoose($raw));
     }
@@ -26,16 +26,16 @@ final class ContractTypeTest extends TestCase
     /**
      * @return iterable<string, array{string, ContractType}>
      */
-    public static function valeursTolerees(): iterable
+    public static function toleratedValues(): iterable
     {
-        yield 'valeur canonique' => ['permanent', ContractType::Permanent];
-        yield 'majuscules' => ['PERMANENT', ContractType::Permanent];
-        yield 'tirets' => ['fixed-term', ContractType::FixedTerm];
-        yield 'espaces superflus' => ['  Internship  ', ContractType::Internship];
+        yield 'canonical value' => ['permanent', ContractType::Permanent];
+        yield 'upper case' => ['PERMANENT', ContractType::Permanent];
+        yield 'dashes' => ['fixed-term', ContractType::FixedTerm];
+        yield 'stray spaces' => ['  Internship  ', ContractType::Internship];
     }
 
-    public function testUneValeurInconnueVautNull(): void
+    public function testAnUnknownValueYieldsNull(): void
     {
-        self::assertNull(ContractType::tryFromLoose('portage-salarial'));
+        self::assertNull(ContractType::tryFromLoose('umbrella-company'));
     }
 }

@@ -2,58 +2,58 @@
   "items": [
     {
       "reference": "DEMO-001",
-      "title": "Développeuse ou développeur PHP",
-      "company": "Fabrique Numérique Fictive",
+      "title": "PHP developer",
+      "company": "Fictional Software Works",
       "city": "Lyon",
       "country": "FR",
       "contract": "permanent",
-      "excerpt": "Reprise et modernisation d'un back-office métier : architecture hexagonale, tests exécutables, revue de code systématique.",
+      "excerpt": "Taking over and modernising a line-of-business back office: hexagonal architecture, executable tests, systematic code review.",
       "published_at": "2026-08-28",
-      "url": "https://example.invalid/offres/demo-001"
+      "url": "https://example.invalid/jobs/demo-001"
     },
     {
       "reference": "DEMO-002",
-      "title": "Intégratrice ou intégrateur accessibilité",
-      "company": "Atelier Exemple",
+      "title": "Accessibility front-end engineer",
+      "company": "Example Studio",
       "city": "Nantes",
       "country": "FR",
       "contract": "fixed_term",
-      "excerpt": "Mise en conformité RGAA d'un parcours de candidature : audit, corrections, transfert de compétences aux équipes produit.",
+      "excerpt": "Bringing an application flow into accessibility compliance: audit, fixes, and handing the practice over to the product teams.",
       "published_at": "2026-08-14",
-      "url": "https://example.invalid/offres/demo-002"
+      "url": "https://example.invalid/jobs/demo-002"
     },
     {
       "reference": "DEMO-003",
-      "title": "Ingénieure ou ingénieur plateforme",
-      "company": "Coopérative Imaginaire",
+      "title": "Platform engineer",
+      "company": "Imaginary Cooperative",
       "city": "Lyon",
       "country": "FR",
       "contract": "freelance",
-      "excerpt": "Industrialisation des déploiements et des sauvegardes sur une infrastructure auto-hébergée, sans dépendance à un fournisseur unique.",
+      "excerpt": "Industrialising deployments and backups on self-hosted infrastructure, with no single-vendor dependency.",
       "published_at": "2026-07-02",
-      "url": "https://example.invalid/offres/demo-003"
+      "url": "https://example.invalid/jobs/demo-003"
     },
     {
       "reference": "DEMO-004",
-      "title": "Stage : assurance qualité applicative",
-      "company": "Fabrique Numérique Fictive",
-      "city": "Genève",
+      "title": "Internship: software quality assurance",
+      "company": "Fictional Software Works",
+      "city": "Geneva",
       "country": "CH",
       "contract": "internship",
-      "excerpt": "Écriture de scénarios de bout en bout et mesure de couverture sur une application existante, encadré par l'équipe technique.",
+      "excerpt": "Writing end-to-end scenarios and measuring coverage on an existing application, mentored by the engineering team.",
       "published_at": "2026-06-19",
-      "url": "https://example.invalid/offres/demo-004"
+      "url": "https://example.invalid/jobs/demo-004"
     },
     {
       "reference": "DEMO-005",
-      "title": "Alternance : développement front",
-      "company": "Atelier Exemple",
+      "title": "Apprenticeship: front-end development",
+      "company": "Example Studio",
       "city": "Villeurbanne",
       "country": "FR",
       "contract": "apprenticeship",
-      "excerpt": "Participation à une interface React et TypeScript, revue par paire et tests de composants dès la première semaine.",
+      "excerpt": "Contributing to a React and TypeScript interface, with pair review and component tests from the first week.",
       "published_at": "2026-05-30",
-      "url": "https://example.invalid/offres/demo-005"
+      "url": "https://example.invalid/jobs/demo-005"
     }
   ]
 }
